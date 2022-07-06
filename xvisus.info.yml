@@ -1,0 +1,5 @@
+name: XVisus
+type: module
+description: Adds the ability for exam supervisors to choose exams to supervise.
+package: Custom
+core_version_requirement: ^9 || ^10

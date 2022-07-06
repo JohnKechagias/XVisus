@@ -1,0 +1,10 @@
+entity.exam.edit_form:
+  route_name: entity.exam.edit_form
+  group: exam
+  title: Edit
+
+entity.exam.delete_form:
+  route_name: entity.exam.delete_form
+  group: exam
+  title: Delete
+  weight: 10

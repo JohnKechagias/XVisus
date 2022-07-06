@@ -1,0 +1,10 @@
+entity.exam.settings:
+  title: 'Exam'
+  description: 'Configure an Exam entity type.'
+  route_name:  entity.exam.settings
+  parent: system.admin_structure
+entity.exam.collection:
+  title: 'Exams'
+  description: 'List of exams.'
+  route_name: entity.exam.collection
+  parent: system.admin_content

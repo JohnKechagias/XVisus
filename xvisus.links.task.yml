@@ -1,0 +1,22 @@
+entity.exam.settings:
+  title: 'Settings'
+  route_name: entity.exam.settings
+  base_route: entity.exam.settings
+entity.exam.view:
+  title: 'View'
+  route_name: entity.exam.canonical
+  base_route: entity.exam.canonical
+entity.exam.edit_form:
+  title: 'Edit'
+  route_name: entity.exam.edit_form
+  base_route: entity.exam.canonical
+entity.exam.delete_form:
+  title: 'Delete'
+  route_name: entity.exam.delete_form
+  base_route: entity.exam.canonical
+  weight: 10
+entity.exam.collection:
+  title: 'Exams'
+  route_name: entity.exam.collection
+  base_route: system.admin_content
+  weight: 10

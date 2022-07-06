@@ -1,0 +1,3 @@
+administer exam:
+  title: 'Administer exam settings'
+  restrict access: true

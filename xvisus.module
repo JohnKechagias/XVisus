@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Provides an exam entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function xvisus_theme() {
+  return [
+    'exam' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for exam templates.
+ *
+ * Default template: exam.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the exam information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_exam(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function xvisus_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish exams.
+      $storage = \Drupal::entityTypeManager()->getStorage('exam');
+      $exam_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($exam_ids) as $exam) {
+        $exam->set('status', FALSE);
+        $exam->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize exams.
+      $storage = \Drupal::entityTypeManager()->getStorage('exam');
+      $exam_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($exam_ids) as $exam) {
+        $exam->setOwnerId(0);
+        $exam->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function xvisus_user_predelete(UserInterface $account) {
+  // Delete exams.
+  $storage = \Drupal::entityTypeManager()->getStorage('exam');
+  $exam_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $exams = $storage->loadMultiple($exam_ids);
+  $storage->delete($exams);
+}

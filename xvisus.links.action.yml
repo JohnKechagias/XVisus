@@ -1,0 +1,5 @@
+exam.add_form:
+  title: 'Add exam'
+  route_name: entity.exam.add_form
+  appears_on:
+    - entity.exam.collection

@@ -1,0 +1,7 @@
+entity.exam.settings:
+  path: 'admin/structure/exam'
+  defaults:
+    _form: '\Drupal\xvisus\Form\ExamSettingsForm'
+    _title: 'Exam'
+  requirements:
+    _permission: 'administer exam'
